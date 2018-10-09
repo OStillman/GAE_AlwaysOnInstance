@@ -24,3 +24,13 @@ def counter_loop():
     except:
         logging.info("Counter loop saw shutdown")
 
+class MainPage(webapp2.RequestHandler):
+    def get(self):
+        self.response.out.write('GLOBAL_COUNTER = %d' % GLOBAL_COUNTER)
+
+class StartHandler(webapp2.RequestHandler):
+    def get(self):
+        runtime.set_shutdown_hook(shutdown)
+        thread = background_thread.BackgroundThread(
+            target=counter_loop)
+        thread.start()
