@@ -34,3 +34,5 @@ class StartHandler(webapp2.RequestHandler):
         thread = background_thread.BackgroundThread(
             target=counter_loop)
         thread.start()
+
+app = webapp2.WSGIApplication([('/', MainPage), ('/_ah/start/', StartHandler)], debug=True)
